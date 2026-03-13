@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Tijana Milošević</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white: #ffffff;
+      --off-white: #f7f6f4;
+      --light-grey: #eeece9;
+      --mid-grey: #c8c4bc;
+      --dark-grey: #6b6560;
+      --charcoal: #2e2b28;
+      --black: #1a1816;
+      --accent: #7a6e62;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+      --max-width: 1100px;
+      --ease: 0.3s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--charcoal);
+      background: var(--white);
+    }
+
+    a { color: var(--accent); text-decoration: none; transition: color var(--ease); }
+    a:hover { color: var(--black); }
+    img { max-width: 100%; display: block; }
+
+    /* LAYOUT */
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 48px; }
+
+    /* HEADER */
+    #site-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.93);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--light-grey);
+      padding: 16px 0;
+      transition: box-shadow var(--ease);
+    }
+    #site-header.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,0.07); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; }
+    .site-name {
+      font-family: var(--serif); font-size: 1.15rem; font-weight: 400;
+      letter-spacing: 0.02em; color: var(--black);
+    }
+    .site-name em { font-style: italic; color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 30px; }
+    nav a {
+      font-size: 0.74rem; font-weight: 400; letter-spacing: 0.13em;
+      text-transform: uppercase; color: var(--dark-grey); transition: color var(--ease);
+    }
+    nav a:hover { color: var(--black); }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-toggle span {
+      display: block; width: 22px; height: 1px;
+      background: var(--charcoal); margin: 5px 0; transition: all var(--ease);
+    }
+
+    /* HERO */
+    #hero {
+      padding: 150px 0 96px;
+      background: var(--off-white);
+      border-bottom: 1px solid var(--light-grey);
+    }
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 340px;
+      gap: 80px; align-items: center;
+    }
+    .hero-text h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 4.5vw, 4rem);
+      font-weight: 300; line-height: 1.08;
+      color: var(--black); margin-bottom: 8px;
+    }
+    .hero-text h1 em { font-style: italic; color: var(--accent); }
+    .hero-title {
+      font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--dark-grey); margin-bottom: 28px;
+    }
+    .hero-bio {
+      font-size: 1.02rem; line-height: 1.78; color: var(--charcoal);
+      max-width: 520px; margin-bottom: 36px;
+    }
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 10px 24px;
+      font-size: 0.74rem; letter-spacing: 0.11em; text-transform: uppercase;
+      border: 1px solid var(--charcoal); color: var(--charcoal);
+      background: transparent; transition: all var(--ease); cursor: pointer;
+    }
+    .btn:hover { background: var(--charcoal); color: var(--white); }
+
+    .hero-photo { position: relative; }
+    .hero-photo img {
+      width: 100%; aspect-ratio: 3/4; object-fit: cover;
+      object-position: top center; filter: grayscale(10%);
+    }
+    .hero-photo::before {
+      content: ''; position: absolute; top: -10px; left: -10px;
+      width: 100%; height: 100%;
+      border: 1px solid var(--mid-grey); z-index: -1;
+    }
+
+    /* SECTIONS */
+    .section { padding: 88px 0; }
+    .section-alt { background: var(--off-white); }
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--mid-grey); margin-bottom: 6px;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.7rem, 2.8vw, 2.5rem);
+      font-weight: 300; color: var(--black);
+      margin-bottom: 40px; padding-bottom: 18px;
+      border-bottom: 1px solid var(--light-grey);
+    }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+    .about-text p { margin-bottom: 15px; font-size: 0.97rem; }
+    .highlights { display: flex; flex-direction: column; gap: 16px; }
+    .hl {
+      padding: 18px 22px; border-left: 2px solid var(--mid-grey);
+      background: var(--white);
+    }
+    .hl h4 {
+      font-family: var(--serif); font-size: 0.98rem; font-weight: 500;
+      color: var(--black); margin-bottom: 4px;
+    }
+    .hl p { font-size: 0.86rem; color: var(--dark-grey); line-height: 1.55; }
+
+    /* BOOK */
+    .book-inner {
+      display: grid; grid-template-columns: 180px 1fr;
+      gap: 44px; align-items: start;
+    }
+    .book-cover-el {
+      background: var(--charcoal); aspect-ratio: 2/3;
+      display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 18px;
+    }
+    .book-cover-el .bc-title {
+      font-family: var(--serif); font-size: 0.9rem; font-weight: 300;
+      line-height: 1.3; color: var(--white); margin-bottom: 8px;
+    }
+    .book-cover-el .bc-pub {
+      font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--mid-grey);
+    }
+    .book-text h3 {
+      font-family: var(--serif); font-size: 1.55rem; font-weight: 300;
+      color: var(--black); margin-bottom: 6px;
+    }
+    .book-text .pub-tag {
+      font-size: 0.72rem; letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 14px;
+    }
+    .book-text p { font-size: 0.94rem; color: var(--dark-grey); line-height: 1.72; }
+
+    /* PUBLICATIONS */
+    .pub-filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; }
+    .f-btn {
+      padding: 6px 15px; font-size: 0.72rem; letter-spacing: 0.1em;
+      text-transform: uppercase; border: 1px solid var(--mid-grey);
+      background: transparent; cursor: pointer; color: var(--dark-grey);
+      transition: all var(--ease); font-family: var(--sans);
+    }
+    .f-btn.active, .f-btn:hover {
+      background: var(--charcoal); border-color: var(--charcoal); color: var(--white);
+    }
+    .pub-list { display: flex; flex-direction: column; }
+    .pub-item {
+      padding: 20px 0; border-bottom: 1px solid var(--light-grey);
+      opacity: 0; transform: translateY(12px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .pub-item:first-child { border-top: 1px solid var(--light-grey); }
+    .pub-item.visible { opacity: 1; transform: translateY(0); }
+    .pub-item.hidden { display: none; }
+    .pub-meta { display: flex; gap: 10px; align-items: center; margin-bottom: 5px; }
+    .pub-year {
+      font-size: 0.7rem; letter-spacing: 0.1em; color: var(--mid-grey);
+      min-width: 38px;
+    }
+    .pub-type-tag {
+      font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 2px 7px; background: var(--light-grey); color: var(--dark-grey);
+    }
+    .pub-title {
+      font-family: var(--serif); font-size: 1.03rem; font-weight: 400;
+      color: var(--black); line-height: 1.38; margin-bottom: 3px;
+    }
+    .pub-detail { font-size: 0.84rem; color: var(--dark-grey); font-style: italic; }
+
+    /* TEACHING */
+    .teaching-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .t-card {
+      padding: 26px 30px; border: 1px solid var(--light-grey); background: var(--white);
+      transition: border-color var(--ease), box-shadow var(--ease);
+    }
+    .t-card:hover { border-color: var(--mid-grey); box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    .t-inst {
+      font-size: 0.69rem; letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 10px;
+    }
+    .t-card h3 {
+      font-family: var(--serif); font-size: 1.1rem; font-weight: 400;
+      color: var(--black); margin-bottom: 14px;
+    }
+    .t-card ul { list-style: none; }
+    .t-card li {
+      font-size: 0.88rem; color: var(--dark-grey);
+      padding: 6px 0; border-bottom: 1px solid var(--light-grey);
+      display: flex; gap: 10px; align-items: baseline;
+    }
+    .t-card li:last-child { border-bottom: none; }
+    .lvl {
+      font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--mid-grey); min-width: 26px; flex-shrink: 0;
+    }
+
+    /* CONTACT */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+    .contact-info h3 {
+      font-family: var(--serif); font-size: 1.3rem; font-weight: 300;
+      color: var(--black); margin-bottom: 22px;
+    }
+    .c-item { display: flex; flex-direction: column; margin-bottom: 18px; }
+    .c-label {
+      font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--mid-grey); margin-bottom: 3px;
+    }
+    .c-val { font-size: 0.93rem; color: var(--charcoal); }
+    .social-links { display: flex; flex-direction: column; gap: 10px; }
+    .s-link {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 0.85rem; color: var(--dark-grey);
+      padding: 13px 16px; border: 1px solid var(--light-grey);
+      transition: all var(--ease);
+    }
+    .s-link:hover { border-color: var(--charcoal); color: var(--black); background: var(--off-white); }
+    .s-link svg { width: 15px; height: 15px; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+    /* FOOTER */
+    #site-footer {
+      background: var(--black); color: var(--mid-grey);
+      padding: 40px 0; text-align: center;
+    }
+    .footer-name {
+      font-family: var(--serif); font-size: 1.1rem;
+      color: var(--white); margin-bottom: 6px;
+    }
+    #site-footer p { font-size: 0.78rem; letter-spacing: 0.05em; }
+
+    /* REVEAL ANIMATION */
+    .reveal {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 880px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 36px; }
+      .hero-photo { max-width: 260px; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+      .teaching-grid { grid-template-columns: 1fr; }
+      .book-inner { grid-template-columns: 1fr; }
+      .book-cover-el { max-width: 150px; }
+      nav ul { gap: 18px; }
+      .container { padding: 0 24px; }
+    }
+    @media (max-width: 600px) {
+      nav ul { display: none; }
+      nav ul.open {
+        display: flex; flex-direction: column; gap: 0;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: var(--white); border-bottom: 1px solid var(--light-grey);
+        padding: 16px 24px;
+      }
+      .nav-toggle { display: block; }
+      .section { padding: 60px 0; }
+      #hero { padding: 120px 0 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="site-name">Tijana <em>Milošević</em></div>
+      <nav id="main-nav">
+        <ul id="nav-list">
+          <li><a href="#about">About</a></li>
+          <li><a href="#book">Book</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="#teaching">Teaching</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="hero-title">Assistant Professor · Researcher · Author</p>
+        <h1>Dr. Tijana<br><em>Milošević</em></h1>
+        <p class="hero-bio">Researcher in digital media, youth well-being, and online safety. Assistant Professor at the Faculty of Philology, University of Belgrade. Author of <em>Protecting Children Online</em> (MIT Press, 2018).</p>
+        <div class="hero-ctas">
+          <a href="#about" class="btn">About</a>
+          <a href="#publications" class="btn">Publications</a>
+          <a href="#contact" class="btn">Contact</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="photo.jpg" alt="Dr. Tijana Milošević">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="container">
+    <p class="section-label">Profile</p>
+    <h2 class="section-title">About</h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>Dr. Tijana Milošević is an Assistant Professor in the Department of Social Sciences, where she teaches Introduction to Communication Studies I and II, as well as Intercultural Communication. Before joining the Faculty of Philology, she worked as an Assistant Professor at University College Dublin (School of Information and Communication Studies), and as a Marie Curie Research Fellow at Dublin City University.</p>
+        <p>She is also an academic affiliate at the Centre for Digital Policy and a member of the Human–Computer Interaction (HCI) research group at University College Dublin, as well as the project coordinator in Serbia for the EU Kids Online network.</p>
+        <p>Her main research area is the use of digital media among children and young people and its impact on youth well-being, as well as exposure to online risks such as digital violence. She has regularly participated in consultations related to online safety, collaborated with the media, and provided expert opinions before parliamentary committees in Ireland.</p>
+        <p>Tijana has published more than 20 academic papers in interdisciplinary journals such as <em>New Media &amp; Society</em>, <em>Social Media &amp; Society</em>, and the <em>International Journal of Communication</em>. From 2024 to 2026, she was a member of the Pool of European Youth Researchers, a joint initiative of the Council of Europe and the European Commission.</p>
+      </div>
+      <div class="highlights">
+        <div class="hl reveal">
+          <h4>Education</h4>
+          <p>PhD in Communication, American University, Washington D.C.<br>MA, George Washington University<br>BA, American University in Bulgaria</p>
+        </div>
+        <div class="hl reveal">
+          <h4>Current Position</h4>
+          <p>Assistant Professor, Department of Social Sciences, Faculty of Philology, University of Belgrade</p>
+        </div>
+        <div class="hl reveal">
+          <h4>Affiliations</h4>
+          <p>Centre for Digital Policy · HCI Group, UCD · EU Kids Online (Serbia coordinator) · Pool of European Youth Researchers (2024–2026)</p>
+        </div>
+        <div class="hl reveal">
+          <h4>Research Focus</h4>
+          <p>Digital media &amp; youth · Online safety · Cyberbullying · Children's rights · AI-based interventions</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK -->
+<section id="book" class="section section-alt">
+  <div class="container">
+    <p class="section-label">Monograph</p>
+    <h2 class="section-title">Book</h2>
+    <div class="book-inner reveal">
+      <div class="book-cover-el">
+        <div class="bc-title">Protecting Children Online: Cyberbullying Policies of Social Media Companies</div>
+        <div class="bc-pub">MIT Press · 2018</div>
+      </div>
+      <div class="book-text">
+        <h3>Protecting Children Online</h3>
+        <p class="pub-tag">MIT Press, 2018</p>
+        <p>An examination of how social media companies develop and implement cyberbullying policies, and what these policies mean for children's rights and online safety. Drawing on in-depth analysis of corporate policy documents and interviews, the book offers a critical perspective on the role of tech companies in governing online harms affecting young people.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications" class="section">
+  <div class="container">
+    <p class="section-label">Scholarly Work</p>
+    <h2 class="section-title">Publications &amp; Conference Papers</h2>
+    <div class="pub-filters">
+      <button class="f-btn active" data-filter="all">All</button>
+      <button class="f-btn" data-filter="journal">Journal Articles</button>
+      <button class="f-btn" data-filter="book-chapter">Book Chapters</button>
+      <button class="f-btn" data-filter="conference">Conference Papers</button>
+      <button class="f-btn" data-filter="report">Reports</button>
+    </div>
+    <div class="pub-list" id="pub-list">
+
+      <div class="pub-item" data-type="book-chapter">
+        <div class="pub-meta"><span class="pub-year">Forth.</span><span class="pub-type-tag">Book Chapter</span></div>
+        <div class="pub-title">Preventing and Addressing Bullying in Education: A Human Rights-Based Approach Using the United Nations Convention on the Rights of the Child</div>
+        <div class="pub-detail">In M. Sapouna, R.A. Willems &amp; P.K. Smith (Eds.) <em>The Cambridge Handbook of Bias-Based Bullying</em>. Cambridge University Press.</div>
+      </div>
+
+      <div class="pub-item" data-type="conference">
+        <div class="pub-meta"><span class="pub-year">2026</span><span class="pub-type-tag">Conference</span></div>
+        <div class="pub-title">Towards Critical AI Literacy: Perspectives of Adolescents in Europe</div>
+        <div class="pub-detail">Milosevic, T., Bhroin, N.N., Tuvi, I., Mascheroni, G., et al. International Communications Association. Cape Town, South Africa.</div>
+      </div>
+
+      <div class="pub-item" data-type="book-chapter">
+        <div class="pub-meta"><span class="pub-year">2026</span><span class="pub-type-tag">Book Chapter</span></div>
+        <div class="pub-title">'Stick up for Yourself… Delete the Comment and Block Her': Exploring the Role of Dignity in Design for AI-Based Cyberbullying Interventions</div>
+        <div class="pub-detail">Milosevic, T., Collier, A., Staksrud, E., &amp; Noula, I. In C. James &amp; M. Ito, <em>Youth Wellbeing in a Technology Rich World</em>. MIT Press.</div>
+      </div>
+
+      <div class="pub-item" data-type="conference">
+        <div class="pub-meta"><span class="pub-year">2025</span><span class="pub-type-tag">Conference</span></div>
+        <div class="pub-title">Generative Artificial Intelligence and Adolescent Critical Digital Literacy</div>
+        <div class="pub-detail">Milosevic, T., Kuzmanovic, D., Bhroin, N.N., et al. ECREA. Transforming Media, Play and Social Interaction.</div>
+      </div>
+
+      <div class="pub-item" data-type="conference">
+        <div class="pub-meta"><span class="pub-year">2025</span><span class="pub-type-tag">Conference</span></div>
+        <div class="pub-title">BullyBench: Youth &amp; Experts-in-the-Loop Framework for Intrinsic and Extrinsic Cyberbullying NLP Benchmarking</div>
+        <div class="pub-detail">Verma, K., Natarajan Kalaivendan, S.B., …, Milosevic, T., &amp; Davis, B. <em>Proceedings of EMNLP 2025: Industry Track</em> (pp. 2172–2208). ACL. Suzhou, China.</div>
+      </div>
+
+      <div class="pub-item" data-type="conference">
+        <div class="pub-meta"><span class="pub-year">2025</span><span class="pub-type-tag">Conference</span></div>
+        <div class="pub-title">From Users to Co-Designers: Youth Participation in Understanding Cyberbullying</div>
+        <div class="pub-detail">Verma, K., Davis, B., Milosevic, T., &amp; Umbach, R. <em>Proceedings of the 24th Interaction Design and Children</em> (pp. 790–802).</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2025</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">Trends in Digital Technologies to Address Children's Online Safety Education: A Systematic Scoping Review</div>
+        <div class="pub-detail">Esfandiari, M., Sciacca, B., Feijóo, S., Laffan, D.A., Milosevic, T., et al. <em>International Journal of Educational Research Open</em>, 9, 100462.</div>
+      </div>
+
+      <div class="pub-item" data-type="book-chapter">
+        <div class="pub-meta"><span class="pub-year">2024</span><span class="pub-type-tag">Book Chapter</span></div>
+        <div class="pub-title">Empathy, Kindness, and Dignity in a Connected World</div>
+        <div class="pub-detail">James, C., Collier, A., Davis, K., Konrath, S., Milosevic, T., et al. In <em>Handbook of Children and Screens</em> (pp. 231–237). Springer Nature Switzerland.</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2023</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">Effectiveness of Artificial-Intelligence-Based Cyberbullying Interventions from Youth Perspective</div>
+        <div class="pub-detail">Milosevic, T., Verma, K., Carter, M., et al. <em>Social Media + Society</em>.</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2023</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">The Children's and Parents' Worries about Online Schooling Associated with Children's Anxiety during Lockdown in Ireland</div>
+        <div class="pub-detail">Laffan, D.A., Kuldas, S., Sciacca, B., et al. <em>International Journal of Communication</em> 17(23).</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2022</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">Time Spent Online and Children's Self-Reported Life Satisfaction in Norway: The Socio-Ecological Perspective</div>
+        <div class="pub-detail">Milosevic, T., Bhroin, N.N., Ólafsson, K., Staksrud, E., &amp; Wachs, S. <em>New Media &amp; Society</em>.</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2022</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">Leveraging Dignity Theory to Understand Bullying, Cyberbullying and Children's Rights</div>
+        <div class="pub-detail">Milosevic, T., Collier, A., O'Higgins Norman, J. <em>International Journal of Bullying Prevention</em>.</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2022</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">Artificial Intelligence to Address Cyberbullying, Harassment and Abuse: New Directions in the Midst of Complexity</div>
+        <div class="pub-detail">Milosevic, T., Van Royen, K., &amp; Davis, B. <em>International Journal of Bullying Prevention</em>, 4(1), 1–5.</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2022</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">Parental Mediation in Pandemic: Predictors and Relationship with Children's Digital Skills and Time Spent Online in Ireland</div>
+        <div class="pub-detail">Sciacca, B., Laffan, D.A., Norman, J.O.H., &amp; Milosevic, T. <em>Computers in Human Behavior</em>, 127, 107081.</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2022</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">Leveraging Machine Translation for Cross-Lingual Fine-Grained Cyberbullying Classification amongst Pre-Adolescents</div>
+        <div class="pub-detail">Verma, K., Popović, M., Poulis, A., et al. <em>Natural Language Engineering</em>, 1–23.</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2022</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">Children's Internet Use, Self-Reported Life Satisfaction, and Parental Mediation in Europe</div>
+        <div class="pub-detail">Milosevic, T., Kuldas, S., Sargioti, A., et al. <em>Frontiers in Psychology</em>, 12, 698176.</div>
+      </div>
+
+      <div class="pub-item" data-type="report">
+        <div class="pub-meta"><span class="pub-year">2022</span><span class="pub-type-tag">Report</span></div>
+        <div class="pub-title">Co-Designing Artificial Intelligence-Based Cyberbullying Interventions on Social Media with Children</div>
+        <div class="pub-detail">Milosevic, T., Verma, K., Vigil, S., et al. DCU Anti-Bullying Centre.</div>
+      </div>
+
+      <div class="pub-item" data-type="book-chapter">
+        <div class="pub-meta"><span class="pub-year">2022</span><span class="pub-type-tag">Book Chapter</span></div>
+        <div class="pub-title">Social Media and Child Social Development</div>
+        <div class="pub-detail">Staksrud, E., &amp; Milosevic, T. In <em>Handbook of Childhood Social Development</em>, 3rd Ed. (P.K. Smith &amp; C. Hart, Eds.).</div>
+      </div>
+
+      <div class="pub-item" data-type="report">
+        <div class="pub-meta"><span class="pub-year">2022</span><span class="pub-type-tag">Report</span></div>
+        <div class="pub-title">The Gendered Experiences of Image-based Sexual Abuse: State of the Research and Evidence-based Recommendations</div>
+        <div class="pub-detail">Andreasen, M.B., Mazzone, A., Foody, M., Milosevic, T., &amp; O'Higgins Norman, J. DCU Anti-Bullying Centre.</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2021</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">Online Correlates of Cyberhate Involvement among Young People from Ten European Countries</div>
+        <div class="pub-detail">Wachs, S., Mazzone, A., Milosevic, T., et al. <em>Computers in Human Behaviour</em>, 123, 106872.</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2021</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">A Review and Content Validation of 10 Measurement Scales for Parental Mediation of Children's Internet Use</div>
+        <div class="pub-detail">Kuldas, S., Sargioti, A., Milosevic, T., &amp; Norman, J.O.H. <em>International Journal of Communication</em>, 15.</div>
+      </div>
+
+      <div class="pub-item" data-type="report">
+        <div class="pub-meta"><span class="pub-year">2021</span><span class="pub-type-tag">Report</span></div>
+        <div class="pub-title">Kids Digital Lives in Covid-19 Times: Key Findings from Ireland</div>
+        <div class="pub-detail">Milosevic, T., Laffan, D., O'Higgins Norman, J. DCU Anti Bullying Centre.</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2020</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">Children's Perceptions of Effectiveness of Social Media Companies' Cyberbullying Policies: An Exploratory Study</div>
+        <div class="pub-detail">Milosevic, T. &amp; Vladisavljevic, M. <em>Journal of Children and Media</em>.</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2020</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">Children as Crowbar? Justifying Censorship on Grounds of Child Protection</div>
+        <div class="pub-detail">Staksrud, E., Olafsson, K., Milosevic, T. <em>Nordic Journal of Human Rights</em>.</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2020</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">Social Relational Factors of Excessive Internet Use in Four European Countries</div>
+        <div class="pub-detail">Mikuška, J., Smahel, D., Dedkova, L., Staksrud, E., Mascheroni, G., &amp; Milosevic, T. <em>International Journal of Public Health</em>, 65(8), 1289–1297.</div>
+      </div>
+
+      <div class="pub-item" data-type="book-chapter">
+        <div class="pub-meta"><span class="pub-year">2019</span><span class="pub-type-tag">Book Chapter</span></div>
+        <div class="pub-title">Narratives of Industry Responses to Cyberbullying: Perspectives on Self-Regulation from and about the Industry</div>
+        <div class="pub-detail">Milosevic, T., O'Neill, B., Staksrud, E. In H. Vandebosch &amp; L. Green (Eds.) <em>Narratives in Research and Interventions on Cyberbullying among Young People</em>. Springer.</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2019</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">Media Representation of Children's Privacy in the Context of the Use of 'Smart Toys' and Commercial Data Collection</div>
+        <div class="pub-detail">Milosevic, T., Dias, P., Mifsud, C., &amp; Trueltzsch-Wijnen, C. <em>Medijske studije/Media Studies</em>, 9(18).</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2017</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">Adolescents and Children in Global Media Landscape: From Risks to Rights</div>
+        <div class="pub-detail">Staksrud, E., &amp; Milosevic, T. <em>Annals of the International Communication Association</em>.</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2017</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">Cyberbullying Victimization in Context: The Role of Social Inequalities in Countries and Regions</div>
+        <div class="pub-detail">Görzig, A., Milosevic, T., &amp; Staksrud, E. <em>Journal of Cross-Cultural Psychology</em>, 48(8), 1198–1215.</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2017</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">Children's Privacy in the Big Data Era: Research Opportunities</div>
+        <div class="pub-detail">Montgomery, K., Chester, J., &amp; Milosevic, T. <em>Pediatrics</em> (supplement).</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2016</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">Social Media Companies' Cyberbullying Policies</div>
+        <div class="pub-detail">Milosevic, T. <em>International Journal of Communication</em>, 10.</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2015</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">Cyberbullying in US Mainstream Media</div>
+        <div class="pub-detail">Milosevic, T. <em>Journal of Children and Media</em>, 9(4), 492–509.</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2015</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">The Impact of Copyright Permissions Culture on the US Visual Arts Community: The Consequences of Fear of Fair Use</div>
+        <div class="pub-detail">Aufderheide, P., Milosevic, T., &amp; Bello, B. <em>New Media &amp; Society</em>, 18(9).</div>
+      </div>
+
+      <div class="pub-item" data-type="journal">
+        <div class="pub-meta"><span class="pub-year">2015</span><span class="pub-type-tag">Journal</span></div>
+        <div class="pub-title">Polarizing News? Representations of Threat and Efficacy in Leading US Newspapers' Coverage of Climate Change</div>
+        <div class="pub-detail">Feldman, L., Hart, P.S., &amp; Milosevic, T. <em>Public Understanding of Science</em>.</div>
+      </div>
+
+      <div class="pub-item" data-type="book-chapter">
+        <div class="pub-meta"><span class="pub-year">2009</span><span class="pub-type-tag">Encyclopedia</span></div>
+        <div class="pub-title">US International Communications</div>
+        <div class="pub-detail">Milosevic, T. In <em>Encyclopedia of Journalism</em> (pp. 1418–1422). SAGE Publications.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TEACHING -->
+<section id="teaching" class="section section-alt">
+  <div class="container">
+    <p class="section-label">Education</p>
+    <h2 class="section-title">Teaching</h2>
+    <div class="teaching-grid">
+      <div class="t-card reveal">
+        <p class="t-inst">University of Belgrade · Faculty of Philology</p>
+        <h3>Social Science Seminar</h3>
+        <ul>
+          <li><span class="lvl">BA</span>Introduction to Communication Studies I</li>
+          <li><span class="lvl">BA</span>Introduction to Communication Studies II</li>
+          <li><span class="lvl">MA</span>Intercultural Communication</li>
+          <li><span class="lvl">PhD</span>Communication and the Public</li>
+        </ul>
+      </div>
+      <div class="t-card reveal">
+        <p class="t-inst">University College Dublin · School of Information &amp; Communication Studies</p>
+        <h3>Previously Taught</h3>
+        <ul>
+          <li><span class="lvl">BA</span>Theories of Media and Communication</li>
+          <li><span class="lvl">BA</span>Critical Research Skills</li>
+          <li><span class="lvl">BA</span>Societal Challenges in the 21st Century</li>
+        </ul>
+      </div>
+      <div class="t-card reveal">
+        <p class="t-inst">Dublin City University · MA Level</p>
+        <h3>Previously Taught</h3>
+        <ul>
+          <li><span class="lvl">MA</span>Social Media and Youth Wellbeing</li>
+        </ul>
+      </div>
+      <div class="t-card reveal">
+        <p class="t-inst">University of Oslo · MA Level</p>
+        <h3>Previously Taught</h3>
+        <ul>
+          <li><span class="lvl">MA</span>Youth and New Media in Context: Bullying, Sexting and Digital Citizenship</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <div class="container">
+    <p class="section-label">Get in Touch</p>
+    <h2 class="section-title">Contact &amp; Links</h2>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <h3>Dr. Tijana Milošević</h3>
+        <div class="c-item">
+          <span class="c-label">Position</span>
+          <span class="c-val">Assistant Professor, Department of Social Sciences</span>
+        </div>
+        <div class="c-item">
+          <span class="c-label">Institution</span>
+          <span class="c-val">Faculty of Philology, University of Belgrade</span>
+        </div>
+        <div class="c-item">
+          <span class="c-label">Research Network</span>
+          <span class="c-val">EU Kids Online – Serbia Coordinator</span>
+        </div>
+      </div>
+      <div class="social-links reveal">
+        <a href="https://www.linkedin.com/in/tijana-milosevic-0375862/" target="_blank" class="s-link">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://www.fil.bg.ac.rs/sr-lat/fakultet/zaposleni/doc-dr-tijana-milosevic-3155" target="_blank" class="s-link">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          University of Belgrade Profile
+        </a>
+        <a href="https://hci.ucd.ie/member-profile/tijana-milosevic/" target="_blank" class="s-link">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          HCI Group, University College Dublin
+        </a>
+        <a href="https://digitalpolicy.ie/people/tijana-milosevic-2/" target="_blank" class="s-link">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          Centre for Digital Policy
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="site-footer">
+  <div class="container">
+    <p class="footer-name">Dr. Tijana Milošević</p>
+    <p>Assistant Professor · Faculty of Philology · University of Belgrade</p>
+  </div>
+</footer>
+
+<script>
+  // Sticky header
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Mobile nav toggle
+  document.getElementById('nav-toggle').addEventListener('click', () => {
+    document.getElementById('nav-list').classList.toggle('open');
+  });
+
+  // Close nav on link click
+  document.querySelectorAll('#nav-list a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('nav-list').classList.remove('open'));
+  });
+
+  // Publication filter
+  document.querySelectorAll('.f-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.pub-item').forEach(item => {
+        item.classList.toggle('hidden', filter !== 'all' && item.dataset.type !== filter);
+      });
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal, .pub-item').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
